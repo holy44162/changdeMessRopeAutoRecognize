@@ -47,9 +47,9 @@ for imgEdge = imgEdgeSteps
             numDim = size(dataML.X,2);
             resultMatrix = zeros(numDim,4);
             for i = 1:numDim
-                gaussianPara = fun_trainGaussian(dataML,i);
+                gaussianPara = fun_trainMultiplyGaussian(dataML,i);
                 
-                [resultMatrix(i,1),resultMatrix(i,2),resultMatrix(i,3)] = fun_testGaussian(dataML,i,gaussianPara);
+                [resultMatrix(i,1),resultMatrix(i,2),resultMatrix(i,3)] = fun_testMultiplyGaussian(dataML,i,gaussianPara);
                 resultMatrix(i,4) = i;
             end
             sortedResult = sortrows(resultMatrix,'descend');
@@ -79,8 +79,8 @@ for imgEdge = imgEdgeSteps
                         continue;
                     end
                     dimIDs = [selectedIDs{1} sortedResult(j,4)];
-                    gaussianPara = fun_trainGaussian(dataML,dimIDs);
-                    [resultCell{1,1},resultCell{1,2},resultCell{1,3}] = fun_testGaussian(dataML,dimIDs,gaussianPara);
+                    gaussianPara = fun_trainMultiplyGaussian(dataML,dimIDs);
+                    [resultCell{1,1},resultCell{1,2},resultCell{1,3}] = fun_testMultiplyGaussian(dataML,dimIDs,gaussianPara);
                     resultCell{1,4} = dimIDs;
                     
                     if resultCell{1,1} == 1
