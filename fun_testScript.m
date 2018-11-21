@@ -1,4 +1,4 @@
-function [bestPara,paraLog,dataMLOutput] = fun_testScript(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType)
+function [bestPara,paraLog,dataMLOutput,gaussianParaOutput] = fun_testScript(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType)
 
 minImgEdge = 0;
 
@@ -10,7 +10,7 @@ else
     imgEdgeSteps = maxImgEdge:-stepSizeImgEdge:minImgEdge;
 end
 
-minHogSize = 2;
+minHogSize = 8;
 
 
 if numHogSizeStep == 0
@@ -94,6 +94,7 @@ for imgEdge = imgEdgeSteps
                         if maxF1Row{1} > bestPara{1,1}
                             bestPara = maxF1Row;
                             dataMLOutput = dataML;
+                            gaussianParaOutput = gaussianPara;
                         end                        
                     end
                 end
