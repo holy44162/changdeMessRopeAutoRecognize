@@ -4,7 +4,7 @@ load(bestParaMat,'bestPara','gaussianParaOutput','dataMLOutput');
 gaborsBinHogFeatureType = 'gaborsBinHog';
 
 if contains(featureType, gaborsBinHogFeatureType,'IgnoreCase',true)
-    dimInd = bestPara{1, 4};    
+    dimInd = bestPara{1, 4};
 end
 
 hogSize = bestPara{1, 5};
