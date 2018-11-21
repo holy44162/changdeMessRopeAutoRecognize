@@ -25,7 +25,7 @@ testFolderName = 'd:\data_seq\smallWinding1\test\imgs\';
 featureType = 'gaborsBinHog';
 
 [bestPara,paraLog,dataMLOutput] = fun_testScript(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType);
-save('bestPara.mat','bestPara','paraLog','dataMLOutput');
+save('bestPara.mat','bestPara','paraLog','dataMLOutput','-v7.3');
 
 totalElapsedTime = toc(tStart);
 disp(['total time: ' num2str(totalElapsedTime) ' sec']);
