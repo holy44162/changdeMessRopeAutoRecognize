@@ -40,9 +40,10 @@ if contains(featureType, gaborsBinHogFeatureType,'IgnoreCase',true)
     Xtest = GaborTextureSegment(inputImg, gamma, Lambda, b, Theta, phi, shape, hogSize);
     
     % pca process
+    Xtest = Xtest(:,dataMLInput.tag); % added by Holy 1811221419
     Xtest = bsxfun(@minus,Xtest,dataMLInput.XMean);
     Xtest = bsxfun(@rdivide, Xtest, dataMLInput.XSigma);
-    Xtest = Xtest(:,dataMLInput.tag);
+%     Xtest = Xtest(:,dataMLInput.tag); % hided by Holy 1811221419
     Xtest = Xtest*dataMLInput.coeff;
     
     featureData = Xtest;    

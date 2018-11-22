@@ -10,14 +10,24 @@ else
     imgEdgeSteps = maxImgEdge:-stepSizeImgEdge:minImgEdge;
 end
 
-minHogSize = 2;
+minHogSize = 8;
 
 
 if numHogSizeStep == 0
     hogSizeSteps = maxHogSize;
 else
-    stepSizeHogSize = (maxHogSize - minHogSize) / numHogSizeStep;
-    hogSizeSteps = maxHogSize:-stepSizeHogSize:minHogSize;
+    % hided by Holy 1811221450
+%     stepSizeHogSize = (maxHogSize - minHogSize) / numHogSizeStep;
+%     hogSizeSteps = maxHogSize:-stepSizeHogSize:minHogSize;
+    % end of hide 1811221450
+    
+    % added by Holy 1811221452
+    maxNumHogSize = log2(maxHogSize)-log2(minHogSize)+1;
+    if numHogSizeStep > maxNumHogSize
+        numHogSizeStep = maxNumHogSize;
+    end
+    hogSizeSteps = 2.^(log2(minHogSize):(log2(minHogSize)+numHogSizeStep-1));
+    % end of addition 1811221452
 end
 
 gaborsBinHogFeatureType = 'gaborsBinHog';

@@ -211,6 +211,10 @@ if contains(firstFilePathName, searchKey1,'IgnoreCase',true)
         tag = any(TF);
         tag = ~tag;
         X = X(:,tag);
+        % added by Holy 1811221413
+        XMean = XMean(:,tag);
+        XSigma = XSigma(:,tag);
+        % end of addition 1811221413
         [coeff,X,~] = pca(X,'Centered',false);
         
         dataMLInput.X = X;
@@ -223,9 +227,10 @@ end
 
 if contains(firstFilePathName, searchKey2,'IgnoreCase',true)
     if contains(featureType, gaborsBinHogFeatureType,'IgnoreCase',true)
+        Xval = Xval(:,dataMLInput.tag); % added by Holy 1811221415
         Xval = bsxfun(@minus,Xval,dataMLInput.XMean);
         Xval = bsxfun(@rdivide, Xval, dataMLInput.XSigma);
-        Xval = Xval(:,dataMLInput.tag);
+%         Xval = Xval(:,dataMLInput.tag); % hided by Holy 1811221414
         Xval = Xval*dataMLInput.coeff;
         
         dataMLInput.Xval = Xval;
@@ -235,9 +240,10 @@ end
 
 if contains(firstFilePathName, searchKey3,'IgnoreCase',true)
     if contains(featureType, gaborsBinHogFeatureType,'IgnoreCase',true)
+        Xtest = Xtest(:,dataMLInput.tag); % added by Holy 1811221416
         Xtest = bsxfun(@minus,Xtest,dataMLInput.XMean);
         Xtest = bsxfun(@rdivide, Xtest, dataMLInput.XSigma);
-        Xtest = Xtest(:,dataMLInput.tag);
+%         Xtest = Xtest(:,dataMLInput.tag); % hided by Holy 1811221415
         Xtest = Xtest*dataMLInput.coeff;
         
         dataMLInput.Xtest = Xtest;
