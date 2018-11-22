@@ -53,6 +53,12 @@ for imgEdge = imgEdgeSteps
             % test
             dataML = realWindingFeatureDataGen(testFolderName,hogSize1,heightImgEdge,widthImgEdge,featureType,dataML);
             
+            % added by Holy 1811221607
+            % retrieve GMM
+            options = statset('MaxIter',1000);
+            GMModel = fitgmdist(dataML.X,1,'Options',options,'CovarianceType','diagonal');
+            % end of addition 1811221607
+            
             % get best parameters
             numDim = size(dataML.X,2);
             resultMatrix = zeros(numDim,4);
