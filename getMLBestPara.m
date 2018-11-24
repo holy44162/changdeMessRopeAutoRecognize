@@ -17,7 +17,7 @@ heightBias = 0;
 widthBias = 0;
 
 numImgEdgeStep = 0;
-numHogSizeStep = 2;
+numHogSizeStep = 1;
 
 trainFolderName = 'd:\data_seq\smallWinding1\train\imgs\';
 CVFolderName = 'd:\data_seq\smallWinding1\CV1\imgs\';

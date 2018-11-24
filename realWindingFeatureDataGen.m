@@ -215,13 +215,21 @@ if contains(firstFilePathName, searchKey1,'IgnoreCase',true)
         XMean = XMean(:,tag);
         XSigma = XSigma(:,tag);
         % end of addition 1811221413
-        [coeff,X,~] = pca(X,'Centered',false);
+%         [coeff,X,~] = pca(X,'Centered',false); % hided by Holy 1811241358
+        
+        % added by Holy 1811241358
+        [coeff,X,latent] = pca(X,'Centered',false);
+        latentTag = (latent>1e-3);
+        X = X(:,latentTag);
+        coeff = coeff(:,latentTag);
+        % end of addition 1811241358
         
         dataMLInput.X = X;
         dataMLInput.coeff = coeff;
         dataMLInput.XMean = XMean;
         dataMLInput.XSigma = XSigma;
         dataMLInput.tag = tag;
+%         dataMLInput.latentTag = latentTag; % added by Holy 1811241440
     end    
 end
 
