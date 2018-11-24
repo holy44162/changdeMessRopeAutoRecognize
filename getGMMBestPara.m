@@ -24,8 +24,8 @@ testFolderName = 'd:\data_seq\smallWinding1\test\imgs\';
 
 featureType = 'gaborsBinHog';
 
-[bestPara,paraLog,dataMLOutput,gaussianParaOutput] = fun_trainMLParasByGMM(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType);
-save('bestPara.mat','bestPara','paraLog','dataMLOutput','gaussianParaOutput','-v7.3');
+[bestPara,paraLog,dataMLOutput] = fun_trainMLParasByGMM(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType);
+save('bestPara.mat','bestPara','paraLog','dataMLOutput','-v7.3');
 
 totalElapsedTime = toc(tStart);
 disp(['total time: ' num2str(totalElapsedTime) ' sec']);

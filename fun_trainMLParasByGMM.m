@@ -1,4 +1,4 @@
-function [bestPara,paraLog,dataMLOutput,gaussianParaOutput] = fun_trainMLParasByGMM(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType)
+function [bestPara,paraLog,dataMLOutput] = fun_trainMLParasByGMM(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType)
 
 minImgEdge = 0;
 
@@ -32,7 +32,9 @@ end
 
 gaborsBinHogFeatureType = 'gaborsBinHog';
 
-bestPara = num2cell(zeros(1,6));
+bestPara = num2cell(zeros(1,6)); % hided by Holy 1811241523
+% bestPara = zeros(1,4); % added by Holy 1811241524
+
 paraLog = [];
 iProgress = 1;
 
@@ -54,18 +56,28 @@ for imgEdge = imgEdgeSteps
             dataML = realWindingFeatureDataGen(testFolderName,hogSize1,heightImgEdge,widthImgEdge,featureType,dataML);
             
             % added by Holy 1811221607
-            % retrieve GMM
-            options = statset('MaxIter',1000);
-            GMModel = fitgmdist(dataML.X,1,'Options',options,'CovarianceType','diagonal');
+%             % retrieve GMM
+%             options = statset('MaxIter',1000);
+%             GMModel = fitgmdist(dataML.X,1,'Options',options,'CovarianceType','diagonal');
             % end of addition 1811221607
             
+            % added by Holy 1811241521
+%             resultPara = zeros(1,4);
+%             resultPara(4) = hogSize1;
+%             [resultPara(1),resultPara(2),resultPara(3)] = testGMM(dataML,GMModel);
+%             if resultPara(1) > bestPara(1)
+%                 bestPara = resultPara;
+%                 dataMLOutput = dataML;
+%                 paraLog = [paraLog;resultPara];
+%             end
+            % end of addition 1811241521
             % get best parameters
             numDim = size(dataML.X,2);
             resultMatrix = zeros(numDim,4);
+            options = statset('MaxIter',1000);
             for i = 1:numDim
-                gaussianPara = fun_trainMultiplyGaussian(dataML,i);
-                
-                [resultMatrix(i,1),resultMatrix(i,2),resultMatrix(i,3)] = fun_testMultiplyGaussian(dataML,i,gaussianPara);
+                GMModel = fitgmdist(dataML.X(:,i),1);
+                [resultMatrix(i,1),resultMatrix(i,2),resultMatrix(i,3)] = testGMM(dataML,GMModel,i);
                 resultMatrix(i,4) = i;
             end
             sortedResult = sortrows(resultMatrix,'descend');
@@ -95,8 +107,8 @@ for imgEdge = imgEdgeSteps
                         continue;
                     end
                     dimIDs = [selectedIDs{1} sortedResult(j,4)];
-                    gaussianPara = fun_trainMultiplyGaussian(dataML,dimIDs);
-                    [resultCell{1,1},resultCell{1,2},resultCell{1,3}] = fun_testMultiplyGaussian(dataML,dimIDs,gaussianPara);
+                    GMModel = fitgmdist(dataML.X(:,dimIDs),1,'Options',options,'CovarianceType','diagonal');
+                    [resultCell{1,1},resultCell{1,2},resultCell{1,3}] = testGMM(dataML,GMModel,dimIDs);
                     resultCell{1,4} = dimIDs;
                     
                     if resultCell{1,1} == 1
@@ -109,8 +121,7 @@ for imgEdge = imgEdgeSteps
                         
                         if maxF1Row{1} > bestPara{1,1}
                             bestPara = maxF1Row;
-                            dataMLOutput = dataML;
-                            gaussianParaOutput = gaussianPara;
+                            dataMLOutput = dataML;                            
                         end                        
                     end
                 end
