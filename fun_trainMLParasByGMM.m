@@ -10,7 +10,7 @@ else
     imgEdgeSteps = maxImgEdge:-stepSizeImgEdge:minImgEdge;
 end
 
-minHogSize = 8;
+minHogSize = 2;
 
 
 if numHogSizeStep == 0
@@ -90,6 +90,12 @@ for imgEdge = imgEdgeSteps
             % perform feature selection
             maxF1Row = num2cell(sortedResult(1,:));
             maxF1Row = [maxF1Row {hogSize1} {imgEdge}];
+            % added by Holy 1811251438
+            if maxF1Row{1} > bestPara{1,1}
+                bestPara = maxF1Row;
+                dataMLOutput = dataML;
+            end
+            % end of addition 1811251438
             featureIDs = maxF1Row(4);
             resultCell = cell(1,4);
             selectedIDs = featureIDs;

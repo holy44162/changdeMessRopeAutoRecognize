@@ -1,6 +1,7 @@
 clear;
 tStart = tic;
-functionPath = 'm:\files\files\phd\functions\';
+% functionPath = 'm:\files\files\phd\functions\';
+functionPath = 'd:\baiduSyn\files\phd\functions\';
 addpath(functionPath);
 
 addpath([functionPath 'toolbox_general']);
@@ -16,7 +17,7 @@ heightBias = 0;
 widthBias = 0;
 
 numImgEdgeStep = 0;
-numHogSizeStep = 1;
+numHogSizeStep = 6;
 
 trainFolderName = 'd:\data_seq\smallWinding1\train\imgs\';
 CVFolderName = 'd:\data_seq\smallWinding1\CV1\imgs\';

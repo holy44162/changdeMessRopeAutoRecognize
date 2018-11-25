@@ -1,9 +1,11 @@
 function [F1,tp,fp,indMess,indFn,indFp] = testGMM(dataML,GMModel,i)
 
-pval = mahal(GMModel,dataML.Xval(:,i));
+% pval = mahal(GMModel,dataML.Xval(:,i)); % hided by Holy 1811251401
+pval = pdf(GMModel,dataML.Xval(:,i)); % added by Holy 1811251401
 [epsilon, ~] = selectThreshold(dataML.yval, pval);
 
-ptest = mahal(GMModel,dataML.Xtest(:,i));
+% ptest = mahal(GMModel,dataML.Xtest(:,i)); % hided by Holy 1811251402
+ptest = pdf(GMModel,dataML.Xtest(:,i)); % added by Holy 1811251402
 
 indMess = find(ptest < epsilon);
 
