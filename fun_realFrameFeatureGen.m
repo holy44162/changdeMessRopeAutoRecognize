@@ -1,4 +1,4 @@
-function featureData = fun_realFrameFeatureGen(inputImg,hogSize,biasHRatio,biasWRatio,featureType,dataMLInput)
+function featureData = fun_realFrameFeatureGen(inputImg,hogSize,biasHRatio,biasWRatio,featureType,dataMLInput,dimInd)
 
 gaborsBinHogFeatureType = 'gaborsBinHog';
 
@@ -44,7 +44,8 @@ if contains(featureType, gaborsBinHogFeatureType,'IgnoreCase',true)
     Xtest = bsxfun(@minus,Xtest,dataMLInput.XMean);
     Xtest = bsxfun(@rdivide, Xtest, dataMLInput.XSigma);
 %     Xtest = Xtest(:,dataMLInput.tag); % hided by Holy 1811221419
-    Xtest = Xtest*dataMLInput.coeff;
+%     Xtest = Xtest*dataMLInput.coeff; % hided by Holy 1811301639
+    Xtest = Xtest*dataMLInput.coeff(:,dimInd); % added by Holy 1811301640
     
     featureData = Xtest;    
 end

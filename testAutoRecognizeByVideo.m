@@ -6,8 +6,8 @@ addpath(functionPath);
 addpath([functionPath 'toolbox_general']);
 addpath([functionPath 'Texture-Segmentation-using-Gabor-Filters']);
 
-videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_mess3_20181121160809.mp4';
-% videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_mess2_20181130160541.mp4';
+% videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_mess3_20181121160809.mp4';
+videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_mess2_20181130160541.mp4';
 
 rectFilePathName = 'rect_anno.txt';
 rotateFilePathName = 'angle_rotate.txt';
@@ -53,8 +53,8 @@ while hasFrame(vidObj)
     vidFrame = readFrame(vidObj);
     
     imgRected = fun_rotateRect(vidFrame, theta, rectWinding);
-    featureData = fun_realFrameFeatureGen(imgRected,hogSize,heightImgEdge,widthImgEdge,featureType,dataMLOutput);
-    messTag = fun_recognizeByGaussian(featureData,dimInd,GMModelOutput,epsilonOutput);
+    featureData = fun_realFrameFeatureGen(imgRected,hogSize,heightImgEdge,widthImgEdge,featureType,dataMLOutput,dimInd);
+    messTag = fun_recognizeByGaussian(featureData,GMModelOutput,epsilonOutput);
     dlmwrite(messTagFilePathName,messTag,'delimiter','\t');
     frameElapsedTime = toc(tStartFrame);
     fps = 1/frameElapsedTime;

@@ -1,6 +1,6 @@
-function messTag = fun_recognizeByGaussian(featureData,dimInd,GMModel,epsilon)
+function messTag = fun_recognizeByGaussian(featureData,GMModel,epsilon)
 
-featureData = featureData(:,dimInd);
+% featureData = featureData(:,dimInd);
 
 % ptest = multiplyGaussianSingle(featureData, gaussianPara.muValue, gaussianPara.sigma2); % hided by Holy 1811301519
 ptest = pdf(GMModel,featureData); % added by Holy 1811301519
