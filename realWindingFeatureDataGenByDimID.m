@@ -1,4 +1,4 @@
-function dataML = realWindingFeatureDataGenByDimID(folder_name,hogSize,biasHRatio,biasWRatio,featureType,dataMLInput)
+function dataML = realWindingFeatureDataGenByDimID(folder_name,hogSize,biasHRatio,biasWRatio,featureType,dataMLInput,dimInd)
 
 gaborsBinHogFeatureType = 'gaborsBinHog';
 
@@ -252,7 +252,7 @@ if contains(firstFilePathName, searchKey3,'IgnoreCase',true)
         Xtest = bsxfun(@minus,Xtest,dataMLInput.XMean);
         Xtest = bsxfun(@rdivide, Xtest, dataMLInput.XSigma);
 %         Xtest = Xtest(:,dataMLInput.tag); % hided by Holy 1811221415
-        Xtest = Xtest*dataMLInput.coeff;
+        Xtest = Xtest*dataMLInput.coeff(:,dimInd);
         
         dataMLInput.Xtest = Xtest;
         dataMLInput.ytest = ytest;

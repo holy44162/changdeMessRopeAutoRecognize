@@ -12,7 +12,7 @@ imgEdge = bestPara{1, 6};
 heightImgEdge = round(heightBias + imgEdge);
 widthImgEdge = round(widthBias + imgEdge);
 
-dataML = realWindingFeatureDataGen(testFolderName,hogSize,heightImgEdge,widthImgEdge,featureType,dataMLOutput);
+dataML = realWindingFeatureDataGenByDimID(testFolderName,hogSize,heightImgEdge,widthImgEdge,featureType,dataMLOutput,dimInd);
 
-[F1,tp,fp,indMess,indFn,indFp] = fun_testGMM(dataML,dimInd,GMModelOutput,epsilonOutput);
+[F1,tp,fp,indMess,indFn,indFp] = fun_testGMM(dataML,GMModelOutput,epsilonOutput);
 end

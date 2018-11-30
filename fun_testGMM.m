@@ -1,6 +1,6 @@
-function [F1,tp,fp,indMess,indFn,indFp] = fun_testGMM(dataML,dimInd,GMModel,epsilon)
+function [F1,tp,fp,indMess,indFn,indFp] = fun_testGMM(dataML,GMModel,epsilon)
 
-Xtest = dataML.Xtest(:,dimInd);
+Xtest = dataML.Xtest;
 ytest = dataML.ytest;
 
 ptest = pdf(GMModel,Xtest);
