@@ -1,5 +1,5 @@
 function [F1,tp,fp,indMess,indFn,indFp] = fun_testScriptWithGMM(bestParaMat,testFolderName,heightBias,widthBias,featureType)
-load(bestParaMat,'bestPara','GMModelOutput','epsilonOutput');
+load(bestParaMat,'bestPara','dataMLOutput','GMModelOutput','epsilonOutput');
 
 gaborsBinHogFeatureType = 'gaborsBinHog';
 
@@ -12,7 +12,7 @@ imgEdge = bestPara{1, 6};
 heightImgEdge = round(heightBias + imgEdge);
 widthImgEdge = round(widthBias + imgEdge);
 
-dataML = realWindingFeatureDataGen(testFolderName,hogSize,heightImgEdge,widthImgEdge,featureType);
+dataML = realWindingFeatureDataGen(testFolderName,hogSize,heightImgEdge,widthImgEdge,featureType,dataMLOutput);
 
-[F1,tp,fp,indMess,indFn,indFp] = fun_testGMM(dataML,dimInd,gaussianParaOutput);
+[F1,tp,fp,indMess,indFn,indFp] = fun_testGMM(dataML,dimInd,GMModelOutput,epsilonOutput);
 end

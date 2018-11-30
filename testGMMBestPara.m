@@ -13,7 +13,7 @@ bestParaMat = 'bestPara.mat';
 heightBias = 0;
 widthBias = 0;
 
-testFolderName = 'd:\data_seq\smallWinding1\test1\imgs\';
+testFolderName = 'd:\data_seq\smallWinding1\test\imgs\';
 
 featureType = 'gaborsBinHog';
 
