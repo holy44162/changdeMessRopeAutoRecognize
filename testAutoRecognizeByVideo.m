@@ -7,6 +7,7 @@ addpath([functionPath 'toolbox_general']);
 addpath([functionPath 'Texture-Segmentation-using-Gabor-Filters']);
 
 videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_mess3_20181121160809.mp4';
+% videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_mess2_20181130160541.mp4';
 
 rectFilePathName = 'rect_anno.txt';
 rotateFilePathName = 'angle_rotate.txt';
@@ -27,7 +28,8 @@ else
 end
 
 bestParaMat = 'bestPara.mat';
-load(bestParaMat,'bestPara','gaussianParaOutput','dataMLOutput');
+% load(bestParaMat,'bestPara','gaussianParaOutput','dataMLOutput'); % hided by Holy 1811301516
+load(bestParaMat,'bestPara','dataMLOutput','GMModelOutput','epsilonOutput');
 
 dimInd = bestPara{1, 4};
 
@@ -46,14 +48,16 @@ numFrames = ceil(vidObj.Duration * vidObj.FrameRate);
 
 i = 1;
 while hasFrame(vidObj)
+    tStartFrame = tic;
     progressbar(i, numFrames);
     vidFrame = readFrame(vidObj);
     
     imgRected = fun_rotateRect(vidFrame, theta, rectWinding);
     featureData = fun_realFrameFeatureGen(imgRected,hogSize,heightImgEdge,widthImgEdge,featureType,dataMLOutput);
-    messTag = fun_recognizeByGaussian(featureData,dimInd,gaussianParaOutput);
+    messTag = fun_recognizeByGaussian(featureData,dimInd,GMModelOutput,epsilonOutput);
     dlmwrite(messTagFilePathName,messTag,'delimiter','\t');
-    
+    frameElapsedTime = toc(tStartFrame);
+    fps = 1/frameElapsedTime;
     % play-----------------
     if i == 1
         fig_handle = figure('Name', 'frame');
@@ -74,7 +78,7 @@ while hasFrame(vidObj)
         imagesc(vidFrame);
         if messTag
             hold on;
-            text(10, 10, int2str(i), 'color', [0 1 1]);
+            text(10, 10, num2str(fps), 'color', [0 1 1]);
             hold off;
             axis off;axis image;set(gca, 'Units', 'normalized', 'Position', [0 0 1 1]);
         else

@@ -10,7 +10,7 @@ else
     imgEdgeSteps = maxImgEdge:-stepSizeImgEdge:minImgEdge;
 end
 
-minHogSize = 2;
+minHogSize = 4;
 
 
 if numHogSizeStep == 0
