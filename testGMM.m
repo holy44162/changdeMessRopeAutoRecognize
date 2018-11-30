@@ -1,4 +1,4 @@
-function [F1,tp,fp,indMess,indFn,indFp] = testGMM(dataML,GMModel,i)
+function [F1,tp,fp,epsilon,indMess,indFn,indFp] = testGMM(dataML,GMModel,i)
 
 % pval = mahal(GMModel,dataML.Xval(:,i)); % hided by Holy 1811251401
 pval = pdf(GMModel,dataML.Xval(:,i)); % added by Holy 1811251401

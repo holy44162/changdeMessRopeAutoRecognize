@@ -17,7 +17,7 @@ heightBias = 0;
 widthBias = 0;
 
 numImgEdgeStep = 0;
-numHogSizeStep = 2;
+numHogSizeStep = 1;
 
 trainFolderName = 'd:\data_seq\smallWinding1\train\imgs\';
 CVFolderName = 'd:\data_seq\smallWinding1\CV1\imgs\';
@@ -25,8 +25,8 @@ testFolderName = 'd:\data_seq\smallWinding1\test\imgs\';
 
 featureType = 'gaborsBinHog';
 
-[bestPara,paraLog,dataMLOutput] = fun_trainMLParasByGMM(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType);
-save('bestPara.mat','bestPara','paraLog','dataMLOutput','-v7.3');
+[bestPara,paraLog,dataMLOutput,GMModelOutput,epsilonOutput] = fun_trainMLParasByGMM(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType);
+save('bestPara.mat','bestPara','paraLog','dataMLOutput','GMModelOutput','epsilonOutput','-v7.3');
 
 totalElapsedTime = toc(tStart);
 disp(['total time: ' num2str(totalElapsedTime) ' sec']);

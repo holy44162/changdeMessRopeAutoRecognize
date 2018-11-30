@@ -1,4 +1,4 @@
-function [bestPara,paraLog,dataMLOutput] = fun_trainMLParasByGMM(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType)
+function [bestPara,paraLog,dataMLOutput,GMModelOutput,epsilonOutput] = fun_trainMLParasByGMM(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType)
 
 minImgEdge = 0;
 
@@ -75,12 +75,22 @@ for imgEdge = imgEdgeSteps
             numDim = size(dataML.X,2);
             resultMatrix = zeros(numDim,4);
             options = statset('MaxIter',1000);
+            gm = cell(1,numDim); % added by Holy 1811301357
+            epsilonVec = zeros(1,numDim); % added by Holy 1811301433
             for i = 1:numDim
-                GMModel = fitgmdist(dataML.X(:,i),1);
-                [resultMatrix(i,1),resultMatrix(i,2),resultMatrix(i,3)] = testGMM(dataML,GMModel,i);
+                % hided by Holy 1811301357
+%                 GMModel = fitgmdist(dataML.X(:,i),1);
+%                 [resultMatrix(i,1),resultMatrix(i,2),resultMatrix(i,3)] = testGMM(dataML,GMModel,i);
+                % end of hide 1811301357
+                
+                % added by Holy 1811301400
+                gm{i} = fitgmdist(dataML.X(:,i),1);
+                [resultMatrix(i,1),resultMatrix(i,2),resultMatrix(i,3),epsilonVec(i)] = testGMM(dataML,gm{i},i);
+                % end of addition 1811301400
                 resultMatrix(i,4) = i;
             end
-            sortedResult = sortrows(resultMatrix,'descend');
+%             sortedResult = sortrows(resultMatrix,'descend'); % hided by Holy 1811301402            
+            [sortedResult,indSR] = sortrows(resultMatrix,'descend'); % added by Holy 1811301403
             
             % remove lines with nan elements
             nanTag = isnan(sortedResult);
@@ -94,6 +104,8 @@ for imgEdge = imgEdgeSteps
             if maxF1Row{1} > bestPara{1,1}
                 bestPara = maxF1Row;
                 dataMLOutput = dataML;
+                GMModelOutput = gm{indSR(1)}; % added by Holy 1811301406
+                epsilonOutput = epsilonVec(indSR(1)); % added by Holy 1811301434
             end
             % end of addition 1811251438
             featureIDs = maxF1Row(4);
@@ -114,7 +126,7 @@ for imgEdge = imgEdgeSteps
                     end
                     dimIDs = [selectedIDs{1} sortedResult(j,4)];
                     GMModel = fitgmdist(dataML.X(:,dimIDs),1,'Options',options,'CovarianceType','diagonal');
-                    [resultCell{1,1},resultCell{1,2},resultCell{1,3}] = testGMM(dataML,GMModel,dimIDs);
+                    [resultCell{1,1},resultCell{1,2},resultCell{1,3},epsilon] = testGMM(dataML,GMModel,dimIDs);
                     resultCell{1,4} = dimIDs;
                     
                     if resultCell{1,1} == 1
@@ -127,7 +139,9 @@ for imgEdge = imgEdgeSteps
                         
                         if maxF1Row{1} > bestPara{1,1}
                             bestPara = maxF1Row;
-                            dataMLOutput = dataML;                            
+                            dataMLOutput = dataML;
+                            GMModelOutput = GMModel; % added by Holy 1811301408
+                            epsilonOutput = epsilon; % added by Holy 1811301435
                         end                        
                     end
                 end
