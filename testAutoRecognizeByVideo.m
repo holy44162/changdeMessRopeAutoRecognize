@@ -55,7 +55,7 @@ while hasFrame(vidObj)
     imgRected = fun_rotateRect(vidFrame, theta, rectWinding);
     featureData = fun_realFrameFeatureGen(imgRected,hogSize,heightImgEdge,widthImgEdge,featureType,dataMLOutput,dimInd);
     messTag = fun_recognizeByGaussian(featureData,GMModelOutput,epsilonOutput);
-    dlmwrite(messTagFilePathName,messTag,'delimiter','\t');
+    dlmwrite(messTagFilePathName,messTag,'delimiter','\t','newline','pc');
     frameElapsedTime = toc(tStartFrame);
     fps = 1/frameElapsedTime;
     % play-----------------
