@@ -12,7 +12,7 @@ videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_m
 rectFilePathName = 'rect_anno.txt';
 rotateFilePathName = 'angle_rotate.txt';
 
-messTagFilePathName = 'data_2.txt';
+messTagFilePathName = 'data_1.txt';
 
 if exist(rectFilePathName, 'file')
     rectWinding = dlmread(rectFilePathName);
