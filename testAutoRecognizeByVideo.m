@@ -8,6 +8,7 @@ addpath([functionPath 'Texture-Segmentation-using-Gabor-Filters']);
 
 % videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_mess3_20181121160809.mp4';
 videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_mess2_20181130160541.mp4';
+% videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_mess1.avi';
 
 rectFilePathName = 'rect_anno.txt';
 rotateFilePathName = 'angle_rotate.txt';
