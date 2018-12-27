@@ -108,6 +108,7 @@ while hasFrame(vidObj)
         else
             hold on;
             text(10, 10, 'rope messing', 'color', [1 0 0],'FontSize',25);
+            line([messPos(1) messPos(3) messPos(5) messPos(7) messPos(1)],[messPos(2) messPos(4) messPos(6) messPos(8) messPos(2)], 'color', 'r'); % added by Holy 1812270924
             hold off;
             axis off;axis image;set(gca, 'Units', 'normalized', 'Position', [0 0 1 1]);
         end
@@ -122,6 +123,7 @@ while hasFrame(vidObj)
         else
             hold on;
             text(10, 10, 'rope messing', 'color', [1 0 0],'FontSize',25);
+            line([messPos(1) messPos(3) messPos(5) messPos(7) messPos(1)],[messPos(2) messPos(4) messPos(6) messPos(8) messPos(2)], 'color', 'r'); % added by Holy 1812270924
             hold off;
             axis off;axis image;set(gca, 'Units', 'normalized', 'Position', [0 0 1 1]);
         end
