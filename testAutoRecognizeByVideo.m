@@ -48,11 +48,17 @@ vidObj = VideoReader(videoPathName);
 numFrames = ceil(vidObj.Duration * vidObj.FrameRate);
 
 i = 1;
+indDuration = 0;
+messPos = [0 0 0 0 0 0 0 0]; % added by Holy 1812271051
+% added by Holy 1812271102
+dlmwrite(messTagFilePathName,0,'delimiter','\t','newline','pc');
+dlmwrite(messTagFilePathName,messPos,'-append','delimiter','\t','newline','pc');
+% end of addition 1812271102
 while hasFrame(vidObj)
     tStartFrame = tic;
     progressbar(i, numFrames);
-    vidFrame = readFrame(vidObj);
-    
+    vidFrame = readFrame(vidObj);   
+        
     % added by Holy 1812251650
     if i == 1
         bwRef = zeros(size(vidFrame,1),size(vidFrame,2));
@@ -64,7 +70,7 @@ while hasFrame(vidObj)
     
 %     % added by Holy 1812270818
 %     % debug procedure: largest connected region number is more than 1
-%     if i == 244
+%     if i == 79
 %         j = 1;
 %     end
 %     % end of addition 1812270818
@@ -80,19 +86,43 @@ while hasFrame(vidObj)
         for j = 1:length(stats)
             tn = [tn;round(stats(j).ConvexHull);];
         end
-    % end of addition 1812270828
+        % end of addition 1812270828
         
         %     if ~isempty(stats) % hided by Holy 1812270837
-%         tn = round(stats.ConvexHull); % hided by Holy 1812270837
-%         tn = round(tn); % hided by Holy 1812270837
+        %         tn = round(stats.ConvexHull); % hided by Holy 1812270837
+        %         tn = round(tn); % hided by Holy 1812270837
         messPos = [min(tn(:, 1)), min(tn(:, 2)),min(tn(:, 1)), max(tn(:, 2)),max(tn(:, 1)), max(tn(:, 2)),max(tn(:, 1)), min(tn(:, 2))];
     end
     % end of addition 1812251651
     
     messTag = fun_recognizeByGaussian(featureData,GMModelOutput,epsilonOutput);
-    dlmwrite(messTagFilePathName,messTag,'delimiter','\t','newline','pc');
+    messTagAcute = messTag; % added by Holy 1812271020    
+    
+    % added by Holy 1812271058
+    % end of addition 1812271058
+    
+    %     dlmwrite(messTagFilePathName,messTag,'delimiter','\t','newline','pc'); % hided by Holy 1812271015
     if messTag && ~isempty(stats)
-        dlmwrite(messTagFilePathName,messPos,'-append','delimiter','\t','newline','pc'); % added by Holy 1812251736
+        fun_replaceTxtSpecificLine(messTagFilePathName, 1, num2str(messTag)); % added by Holy 1812271016
+%         dlmwrite(messTagFilePathName,messPos,'-append','delimiter','\t','newline','pc'); % added by Holy 1812251736
+        
+        % added by Holy 1812271111
+        allOneString = sprintf('%.0f\t',messPos);
+        allOneString = allOneString(1:end-1);% strip final delimiter
+        fun_replaceTxtSpecificLine(messTagFilePathName, 2, allOneString);
+        % end of addition 1812271111
+        
+        indDuration = 0; % added by Holy 1812270951
+    else
+        % added by Holy 1812271019
+        indDuration = indDuration + 1;
+        if indDuration < 10
+            messTagAcute = ~messTag;
+        else
+            messTagAcute = messTag;
+            fun_replaceTxtSpecificLine(messTagFilePathName, 1, num2str(messTag)); % added by Holy 1812271116
+        end
+        % end of addition 1812271019
     end
     frameElapsedTime = toc(tStartFrame);
     fps = 1/frameElapsedTime;
@@ -100,7 +130,8 @@ while hasFrame(vidObj)
     if i == 1
         fig_handle = figure('Name', 'frame');
         imagesc(vidFrame);
-        if ~messTag
+        %         if ~messTag % hided by Holy 1812271023
+        if ~messTagAcute % added by Holy 1812271023
             hold on;
             text(10, 10, int2str(i), 'color', [0 1 1]);
             hold off;
@@ -115,7 +146,8 @@ while hasFrame(vidObj)
     else
         figure(fig_handle);
         imagesc(vidFrame);
-        if ~messTag
+        %         if ~messTag % hided by Holy 1812271023
+        if ~messTagAcute % added by Holy 1812271023
             hold on;
             text(10, 10, num2str(fps), 'color', [0 1 1]);
             hold off;
@@ -129,7 +161,7 @@ while hasFrame(vidObj)
         end
     end
     drawnow;
-    % ---------------------    
+    % ---------------------
     i = i + 1;
 end
 
