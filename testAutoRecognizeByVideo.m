@@ -53,17 +53,54 @@ while hasFrame(vidObj)
     progressbar(i, numFrames);
     vidFrame = readFrame(vidObj);
     
+    % added by Holy 1812251650
+    if i == 1
+        bwRef = zeros(size(vidFrame,1),size(vidFrame,2));
+    end
+    % end of addition 1812251650
+    
     imgRected = fun_rotateRect(vidFrame, theta, rectWinding);
-    featureData = fun_realFrameFeatureGen(imgRected,hogSize,heightImgEdge,widthImgEdge,featureType,dataMLOutput,dimInd);
+    [featureData,bwImg] = fun_realFrameFeatureGen(imgRected,hogSize,heightImgEdge,widthImgEdge,featureType,dataMLOutput,dimInd);
+    
+%     % added by Holy 1812270818
+%     % debug procedure
+%     if i == 244
+%         j = 1;
+%     end
+%     % end of addition 1812270818
+    
+    % added by Holy 1812251651
+    bwOutputImg = fun_rotateRectBack(bwRef, bwImg, theta, rectWinding);
+    outputBW_LC = fun_BWLargestConnectedRegion(bwOutputImg);
+    stats = regionprops(logical(outputBW_LC), 'ConvexHull');
+    
+    % added by Holy 1812270828
+    if ~isempty(stats)
+        tn = [];
+        for j = 1:length(stats)
+            tn = [tn;round(stats(j).ConvexHull);];
+        end
+    % end of addition 1812270828
+        
+        %     if ~isempty(stats) % hided by Holy 1812270837
+%         tn = round(stats.ConvexHull); % hided by Holy 1812270837
+%         tn = round(tn); % hided by Holy 1812270837
+        messPos = [min(tn(:, 1)), min(tn(:, 2)),min(tn(:, 1)), max(tn(:, 2)),max(tn(:, 1)), max(tn(:, 2)),max(tn(:, 1)), min(tn(:, 2))];
+    end
+    % end of addition 1812251651
+    
     messTag = fun_recognizeByGaussian(featureData,GMModelOutput,epsilonOutput);
     dlmwrite(messTagFilePathName,messTag,'delimiter','\t','newline','pc');
+    if messTag && ~isempty(stats)
+        dlmwrite(messTagFilePathName,messPos,'-append','delimiter','\t','newline','pc'); % added by Holy 1812251736
+    end
     frameElapsedTime = toc(tStartFrame);
     fps = 1/frameElapsedTime;
     % play-----------------
     if i == 1
         fig_handle = figure('Name', 'frame');
         imagesc(vidFrame);
-        if messTag
+        if ~messTag
             hold on;
             text(10, 10, int2str(i), 'color', [0 1 1]);
             hold off;
@@ -77,7 +114,7 @@ while hasFrame(vidObj)
     else
         figure(fig_handle);
         imagesc(vidFrame);
-        if messTag
+        if ~messTag
             hold on;
             text(10, 10, num2str(fps), 'color', [0 1 1]);
             hold off;

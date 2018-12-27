@@ -1,4 +1,4 @@
-function featureData = fun_realFrameFeatureGen(inputImg,hogSize,biasHRatio,biasWRatio,featureType,dataMLInput,dimInd)
+function [featureData,bwImg] = fun_realFrameFeatureGen(inputImg,hogSize,biasHRatio,biasWRatio,featureType,dataMLInput,dimInd)
 
 gaborsBinHogFeatureType = 'gaborsBinHog';
 
@@ -37,7 +37,7 @@ if contains(featureType, gaborsBinHogFeatureType,'IgnoreCase',true)
     F = [ (.25 - J) (.25 + J) ]; F = sort(F); Lambda = 1 ./ F;
     Lambda = Lambda(end-1:end);
     % ----------------------------               
-    Xtest = GaborTextureSegment(inputImg, gamma, Lambda, b, Theta, phi, shape, hogSize);
+    [Xtest,bwImg] = GaborTextureSegment(inputImg, gamma, Lambda, b, Theta, phi, shape, hogSize);
     
     % pca process
     Xtest = Xtest(:,dataMLInput.tag); % added by Holy 1811221419
