@@ -63,7 +63,7 @@ while hasFrame(vidObj)
     [featureData,bwImg] = fun_realFrameFeatureGen(imgRected,hogSize,heightImgEdge,widthImgEdge,featureType,dataMLOutput,dimInd);
     
 %     % added by Holy 1812270818
-%     % debug procedure
+%     % debug procedure where largest connected region number is 2
 %     if i == 244
 %         j = 1;
 %     end
