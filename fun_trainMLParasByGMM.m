@@ -1,4 +1,4 @@
-function [bestPara,paraLog,dataMLOutput,GMModelOutput,epsilonOutput] = fun_trainMLParasByGMM(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType)
+function [bestPara,paraLog,dataMLOutput,GMModelParas,epsilonOutput] = fun_trainMLParasByGMM(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType)
 
 minImgEdge = 0;
 
@@ -105,6 +105,10 @@ for imgEdge = imgEdgeSteps
                 bestPara = maxF1Row;
                 dataMLOutput = dataML;
                 GMModelOutput = gm{indSR(1)}; % added by Holy 1811301406
+                % added by Holy 1812291058
+                GMModelParas.mu = GMModelOutput.mu;
+                GMModelParas.Sigma = GMModelOutput.Sigma;
+                % end of addition 1812291058
                 epsilonOutput = epsilonVec(indSR(1)); % added by Holy 1811301434
             end
             % end of addition 1811251438
@@ -141,6 +145,10 @@ for imgEdge = imgEdgeSteps
                             bestPara = maxF1Row;
                             dataMLOutput = dataML;
                             GMModelOutput = GMModel; % added by Holy 1811301408
+                            % added by Holy 1812291058
+                            GMModelParas.mu = GMModelOutput.mu;
+                            GMModelParas.Sigma = GMModelOutput.Sigma;
+                            % end of addition 1812291058
                             epsilonOutput = epsilon; % added by Holy 1811301435
                         end                        
                     end

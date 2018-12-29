@@ -17,7 +17,7 @@ heightBias = 0;
 widthBias = 0;
 
 numImgEdgeStep = 0;
-numHogSizeStep = 5;
+numHogSizeStep = 3;
 
 trainFolderName = 'd:\data_seq\smallWinding1\train\imgs\';
 CVFolderName = 'd:\data_seq\smallWinding1\CV1\imgs\';
@@ -26,7 +26,16 @@ testFolderName = 'd:\data_seq\smallWinding1\test\imgs\';
 featureType = 'gaborsBinHog';
 
 [bestPara,paraLog,dataMLOutput,GMModelOutput,epsilonOutput] = fun_trainMLParasByGMM(maxHogSize,maxImgEdge,heightBias,widthBias,numImgEdgeStep,numHogSizeStep,trainFolderName,CVFolderName,testFolderName,featureType);
-save('bestPara.mat','bestPara','paraLog','dataMLOutput','GMModelOutput','epsilonOutput','-v7.3');
+save('bestParaFull.mat','bestPara','paraLog','dataMLOutput','GMModelOutput','epsilonOutput','-v7.3');
+
+% added by Holy 1812291107
+dataMLTmp.tag = dataMLOutput.tag;
+dataMLTmp.XMean = dataMLOutput.XMean;
+dataMLTmp.XSigma = dataMLOutput.XSigma;
+dataMLTmp.coeff = dataMLOutput.coeff;
+dataMLOutput = dataMLTmp;
+save('bestPara.mat','bestPara','dataMLOutput','GMModelOutput','epsilonOutput');
+% end of addition 1812291107
 
 totalElapsedTime = toc(tStart);
 disp(['total time: ' num2str(totalElapsedTime) ' sec']);

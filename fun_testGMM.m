@@ -1,5 +1,7 @@
 function [F1,tp,fp,indMess,indFn,indFp] = fun_testGMM(dataML,GMModel,epsilon)
 
+GMModel = gmdistribution(GMModel.mu,GMModel.Sigma); % added by Holy 1812291335
+
 Xtest = dataML.Xtest;
 ytest = dataML.ytest;
 

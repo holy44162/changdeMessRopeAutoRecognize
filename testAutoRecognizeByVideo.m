@@ -95,7 +95,7 @@ while hasFrame(vidObj)
         if ~isempty(stats)
             tn = [];
             for j = 1:length(stats)
-                tn = [tn;round(stats(j).ConvexHull);];
+                tn = [tn;round(stats(j).ConvexHull)];
             end
             % end of addition 1812270828
             
