@@ -17,6 +17,11 @@ rotateFilePathName = 'angle_rotate.txt';
 % messTagFilePathName = 'data_1.txt'; % hided by Holy 1901021429
 messTagFilePathName = 'm:\files\computerVision\windingRope\messRope\data_1.txt'; % added by Holy 1901021429
 
+% added by Holy 1901021628
+timeStampPythonFilePathName = 'm:\files\computerVision\windingRope\messRope\timeStampPython.txt';
+timeStampMatlabFilePathName = 'm:\files\computerVision\windingRope\messRope\timeStampMatlab.txt';
+% end of addition 1901021628
+
 if exist(rectFilePathName, 'file')
     rectWinding = dlmread(rectFilePathName);
     rectWinding = round(rectWinding);
@@ -213,6 +218,25 @@ while loopTag % added by Holy 1901021437
         drawnow;
         % ---------------------
         i = i + 1;
+        
+        % added by Holy 1901021631
+        dlmwrite(timeStampMatlabFilePathName,roundCurTime,'delimiter','\t','newline','pc');
+        waitPythonTag = true;
+        while waitPythonTag
+            if exist(timeStampPythonFilePathName, 'file')
+                fileID = fopen(timeStampPythonFilePathName, 'r');
+                if fileID ~= -1
+                    timeStampPython = fread(fileID);
+                    if ~isempty(timeStampPython)
+                        if roundCurTime <= str2double(timeStampPython)
+                            waitPythonTag = false;
+                        end
+                    end
+                end
+%                 timeStampPython = dlmread(timeStampPythonFilePathName);                
+            end
+        end
+        % end of addition 1901021631
     end
     % added by Holy 1901021455
     delete(gca);
