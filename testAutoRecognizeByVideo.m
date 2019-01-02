@@ -166,6 +166,8 @@ while loopTag % added by Holy 1901021437
         fps = 1/frameElapsedTime;
         % end of addition 1812271632
         
+        roundCurTime = round(vidObj.CurrentTime,1); % added by Holy 1901021615
+        
         % play-----------------
         if i == 1
             fig_handle = figure('Name', 'frame');
@@ -175,13 +177,13 @@ while loopTag % added by Holy 1901021437
             if ~messTagFromFile % added by Holy 1812271428
                 hold on;
                 text(10, 10, int2str(i), 'color', [0 1 1]);
-                text(10, 90, num2str(vidObj.CurrentTime), 'color', [0 1 1],'FontSize',25); % added by Holy 1901021509
+                text(10, 90, num2str(roundCurTime), 'color', [0 1 1],'FontSize',25); % added by Holy 1901021509
                 hold off;
                 axis off;axis image;set(gca, 'Units', 'normalized', 'Position', [0 0 1 1]);
             else
                 hold on;
                 text(10, 10, 'rope messing', 'color', [1 0 0],'FontSize',25);
-                text(10, 90, num2str(vidObj.CurrentTime), 'color', [1 0 0],'FontSize',25); % added by Holy 1901021509
+                text(10, 90, num2str(roundCurTime), 'color', [1 0 0],'FontSize',25); % added by Holy 1901021509
                 %             line([messPos(1) messPos(3) messPos(5) messPos(7) messPos(1)],[messPos(2) messPos(4) messPos(6) messPos(8) messPos(2)], 'color', 'r'); % added by Holy 1812270924
                 line(messPosFromFile([1,3,5,7,1]),messPosFromFile([2,4,6,8,2]), 'color', 'r'); % added by Holy 1812271432
                 hold off;
@@ -195,13 +197,13 @@ while loopTag % added by Holy 1901021437
             if ~messTagFromFile % added by Holy 1812271436
                 hold on;
                 text(10, 10, num2str(fps), 'color', [0 1 1]);
-                text(10, 90, num2str(vidObj.CurrentTime), 'color', [0 1 1],'FontSize',25); % added by Holy 1901021509
+                text(10, 90, num2str(roundCurTime), 'color', [0 1 1],'FontSize',25); % added by Holy 1901021509
                 hold off;
                 axis off;axis image;set(gca, 'Units', 'normalized', 'Position', [0 0 1 1]);
             else
                 hold on;
                 text(10, 10, 'rope messing', 'color', [1 0 0],'FontSize',25);
-                text(10, 90, num2str(vidObj.CurrentTime), 'color', [1 0 0],'FontSize',25); % added by Holy 1901021509
+                text(10, 90, num2str(roundCurTime), 'color', [1 0 0],'FontSize',25); % added by Holy 1901021509
                 %             line([messPos(1) messPos(3) messPos(5) messPos(7) messPos(1)],[messPos(2) messPos(4) messPos(6) messPos(8) messPos(2)], 'color', 'r'); % added by Holy 1812270924
                 line(messPosFromFile([1,3,5,7,1]),messPosFromFile([2,4,6,8,2]), 'color', 'r'); % added by Holy 1812271432
                 hold off;
