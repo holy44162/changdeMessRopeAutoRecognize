@@ -1,5 +1,4 @@
 clear;
-tic
 % functionPath = 'd:\baiduSyn\files\phd\functions\';
 functionPath = 'm:\files\files\phd\functions\';
 addpath(functionPath);
@@ -14,14 +13,10 @@ videoPathName = 'd:\data\建起常德新工业园Winding_data\190107\data_mess_all_2019_
 
 [pathName,fileName,fileExt] = fileparts(videoPathName);
 
-imgsPath = fullfile('d:\data_seq\changdeWinding\winding2\', fileName);
+rectFilePathName = fullfile(pathName, 'rect_anno.txt');
+rotateFilePathName = fullfile(pathName, 'angle_rotate.txt');
 
-upDirName = getUpLevelPath(imgsPath, 1);
+vidObj = VideoReader(videoPathName);
+vidFrame = readFrame(vidObj);
 
-rectFilePathName = fullfile(upDirName, 'rect_anno.txt');
-rotateFilePathName = fullfile(upDirName, 'angle_rotate.txt');
-
-entropyThreshold = 1e-3;
-
-fun_readVideoAndSaveFramesByEntropy(videoPathName, imgsPath, rectFilePathName, rotateFilePathName, entropyThreshold);
-toc
+[positionH, theta] = fun_getRotateAndRect(vidFrame, rectFilePathName, rotateFilePathName);
