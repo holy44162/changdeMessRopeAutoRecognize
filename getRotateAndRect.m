@@ -9,7 +9,7 @@ addpath([functionPath 'messRopeFunctions']);
 % videoPathName = 'd:\data\190104建起常德新工业园Winding_data\2019-01-04\00000000052000000.mp4';
 % videoPathName = 'd:\data\190104建起常德新工业园Winding_data\2019-01-04\00000000046000100_20190107120516.mp4';
 % videoPathName = 'd:\data\建起常德新工业园Winding_data\190107\data_mess_all_2019_01_07_17_27_22.mp4';
-videoPathName = 'd:\data\建起常德新工业园Winding_data\190107\data_mess_all_2019_01_07_17_27_22.mp4';
+videoPathName = 'd:\data\建起常德新工业园Winding_data\190107\00000000007000100(1).mp4';
 
 [pathName,fileName,fileExt] = fileparts(videoPathName);
 
