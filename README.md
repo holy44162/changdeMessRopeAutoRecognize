@@ -1,2 +1,2 @@
-# smallWindingMessRopeAutoRecognize
-mess rope auto-recognition for specific small winding.
+# changdeMessRopeAutoRecognize
+mess rope auto-recognition for changde winding.
