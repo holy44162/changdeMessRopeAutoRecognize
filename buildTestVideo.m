@@ -6,8 +6,8 @@ addpath(functionPath);
 addpath([functionPath 'toolbox_general']);
 
 builtVideoPathName = 'd:\data_seq\changdeWinding\winding2\test.mp4';
-normalFramesPath = 'd:\data_seq\changdeWinding\winding2\video\test\imgs\';
-messFramesPath = 'd:\data_seq\changdeWinding\winding2\mess\test\';
+normalFramesPath = 'd:\data_seq\changdeWinding\winding2\video\normal\';
+messFramesPath = 'd:\data_seq\changdeWinding\winding2\video\mess\';
 
 fps = 25;
 portionNum = 7;
