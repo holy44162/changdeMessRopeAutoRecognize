@@ -1,7 +1,7 @@
 clear;
 tStart = tic;
-% functionPath = 'm:\files\files\phd\functions\';
-functionPath = 'd:\baiduSyn\files\phd\functions\';
+functionPath = 'm:\files\files\phd\functions\';
+% functionPath = 'd:\baiduSyn\files\phd\functions\';
 addpath(functionPath);
 addpath([functionPath 'toolbox_general']);
 addpath([functionPath 'Texture-Segmentation-using-Gabor-Filters']);
@@ -9,21 +9,21 @@ addpath([functionPath 'Texture-Segmentation-using-Gabor-Filters']);
 % videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_mess3_20181121160809.mp4';
 % videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_mess2_20181130160541.mp4';
 % videoPathName = 'd:\data\windingRope\fromSongjingtao\new_data_1811050807\light_mess1.avi';
-% videoPathName = 'm:\files\computerVision\windingRope\messRope\test2.mp4';
-videoPathName = 'd:\backup\project\messRope\test2.mp4';
+videoPathName = 'm:\files\computerVision\windingRope\messRope\test2.mp4';
+% videoPathName = 'd:\backup\project\messRope\test2.mp4';
 
 rectFilePathName = 'rect_anno.txt';
 rotateFilePathName = 'angle_rotate.txt';
 
 % messTagFilePathName = 'data_1.txt'; % hided by Holy 1901021429
-% messTagFilePathName = 'm:\files\computerVision\windingRope\messRope\data_1.txt'; % added by Holy 1901021429
-messTagFilePathName = 'd:\backup\project\messRope\data_1.txt'; % added by Holy 1901021429
+messTagFilePathName = 'm:\files\computerVision\windingRope\messRope\data_1.txt'; % added by Holy 1901021429
+% messTagFilePathName = 'd:\backup\project\messRope\data_1.txt'; % added by Holy 1901021429
 
 % added by Holy 1901021628
-% timeStampPythonFilePathName = 'm:\files\computerVision\windingRope\messRope\timeStampPython.txt';
-% timeStampMatlabFilePathName = 'm:\files\computerVision\windingRope\messRope\timeStampMatlab.txt';
-timeStampPythonFilePathName = 'd:\backup\project\messRope\timeStampPython.txt';
-timeStampMatlabFilePathName = 'd:\backup\project\messRope\timeStampMatlab.txt';
+timeStampPythonFilePathName = 'm:\files\computerVision\windingRope\messRope\timeStampPython.txt';
+timeStampMatlabFilePathName = 'm:\files\computerVision\windingRope\messRope\timeStampMatlab.txt';
+% timeStampPythonFilePathName = 'd:\backup\project\messRope\timeStampPython.txt';
+% timeStampMatlabFilePathName = 'd:\backup\project\messRope\timeStampMatlab.txt';
 % end of addition 1901021628
 
 if exist(rectFilePathName, 'file')
