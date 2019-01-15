@@ -11,17 +11,20 @@ addpath([functionPath 'Texture-Segmentation-using-Gabor-Filters']);
 maxHogSize = 64;
 % maxHogSize = 4;
 
-maxImgEdge = 30;
+maxImgEdge = 40;
 
-heightBias = 0;
+heightBias = 50;
 widthBias = 0;
 
-numImgEdgeStep = 0;
-numHogSizeStep = 1;
+numImgEdgeStep = 3;
+numHogSizeStep = 5;
 
-trainFolderName = 'd:\data_seq\smallWinding1\train\imgs\';
-CVFolderName = 'd:\data_seq\smallWinding1\CV1\imgs\';
-testFolderName = 'd:\data_seq\smallWinding1\test\imgs\';
+% trainFolderName = 'd:\data_seq\smallWinding1\train\imgs\';
+% CVFolderName = 'd:\data_seq\smallWinding1\CV1\imgs\';
+% testFolderName = 'd:\data_seq\smallWinding1\test\imgs\';
+trainFolderName = 'd:\data_seq\changdeWinding\winding2\train\imgs\';
+CVFolderName = 'd:\data_seq\changdeWinding\winding2\CV\imgs\';
+testFolderName = 'd:\data_seq\changdeWinding\winding2\test\imgs\';
 
 featureType = 'gaborsBinHog';
 
